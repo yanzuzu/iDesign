@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using ZuEngine.UI;
 
 public class MainUIControl : MonoBehaviour {
 	[SerializeField]
