@@ -83,6 +83,7 @@ namespace ZuEngine.Event
 
 			if(m_eventListeners.ContainsKey(eventName))
 			{
+				ZuDebug.Log(string.Format("SendEvent eventName = {0}",eventName));
                 //clone listeners before iteration to allow removing a listener in the event handler
                 foreach(ListenerContainer lc in m_eventListeners[eventName].ToArray())
 				{

@@ -7,25 +7,65 @@ public class ItemListView : MonoBehaviour {
 	private ListViewParentNode m_parentNode;
 	[SerializeField]
 	private UIGrid m_grid;
+	[SerializeField]
+	private ListViewChildNode m_childNode;
+	[SerializeField]
+	private UIGrid m_childGrid;
 
 	private MainUIData m_uiData;
+	private List<ListViewParentNode> m_parentNodes = new List<ListViewParentNode> ();
+	private List<ListViewChildNode> m_childNodes = new List<ListViewChildNode> ();
 
 	public void Setup(MainUIData uiData)
 	{
 		m_uiData = uiData;
-		createParentNode ();
+		refreshParentNode (m_uiData.UiDatas);
 	}
 
-	private void createParentNode()
+	public void refreshChildNode(List<UiItemData> pItems)
 	{
-		for( int i = 0 ; i < m_uiData.UiDatas.Count ; i ++ )
+		m_grid.gameObject.SetActive (false);
+		m_childGrid.gameObject.SetActive (true);
+		for( int i = 0 ; i < m_childNodes.Count ; i ++ )
+		{
+			DestroyImmediate(m_childNodes[i].gameObject);
+		}
+		m_childNodes.Clear ();
+
+		for( int i = 0 ; i < pItems.Count ; i ++ )
+		{
+			GameObject unitObj = Instantiate(m_childNode.gameObject) as GameObject;
+			unitObj.transform.parent = m_childGrid.transform;
+			unitObj.transform.localScale = Vector3.one;
+			unitObj.SetActive(true);
+			ListViewChildNode unitComponent = unitObj.GetComponent<ListViewChildNode>();
+			unitComponent.Setup(pItems[i]);
+			m_childNodes.Add(unitComponent);
+		}
+		m_childGrid.Reposition ();
+	}
+
+	public void refreshParentNode(List<MainUiParentNode> pParentNodes)
+	{
+		m_childGrid.gameObject.SetActive (false);
+		m_grid.gameObject.SetActive (true);
+		for( int i = 0 ; i< m_parentNodes.Count ; i ++ )
+		{
+			DestroyImmediate(m_parentNodes[i].gameObject);
+		}
+		m_parentNodes.Clear ();
+
+		for( int i = 0 ; i < pParentNodes.Count ; i ++ )
 		{
 			GameObject unitObj = Instantiate(m_parentNode.gameObject) as GameObject;
 			unitObj.transform.parent = m_grid.transform;
 			unitObj.transform.localScale = Vector3.one;
 			unitObj.SetActive(true);
 			ListViewParentNode unitComponent = unitObj.GetComponent<ListViewParentNode>();
-			unitComponent.Setup(m_uiData.UiDatas[i]);
+			unitComponent.Setup(pParentNodes[i]);
+			m_parentNodes.Add(unitComponent);
 		}
+		m_grid.Reposition();
 	}
+
 }

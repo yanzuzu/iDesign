@@ -19,8 +19,8 @@ public class DataManager : MonoBehaviour {
 		MainUiParentNode parentNode = new MainUiParentNode ();
 		parentNode.name = "Walls";
 		parentNode.Items = new List<UiItemData> ();
-		parentNode.Items.Add(new UiItemData(1,""));
-		parentNode.Items.Add(new UiItemData(2,""));
+		parentNode.Items.Add(new UiItemData(1,"item_wall_straight"));
+		parentNode.Items.Add(new UiItemData(2,"item_wall_multiStraight"));
 		parentNode.NextNode = null;
 		data.UiDatas.Add (parentNode);
 
@@ -32,9 +32,10 @@ public class DataManager : MonoBehaviour {
 		parentNode3.name = "lights";
 		parentNode3.NextNode = null;
 		parentNode3.Items = new List<UiItemData> ();
-		parentNode3.Items.Add(new UiItemData(3,""));
-		parentNode3.Items.Add(new UiItemData(4,""));
-		parentNode2.NextNode = parentNode2;
+		parentNode3.Items.Add(new UiItemData(3,"item_light_1"));
+		parentNode3.Items.Add(new UiItemData(4,"item_light_2"));
+
+		parentNode2.NextNode.Add(parentNode3);
 
 		data.UiDatas.Add (parentNode2);
 

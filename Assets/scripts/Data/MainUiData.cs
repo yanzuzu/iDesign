@@ -11,7 +11,7 @@ public class MainUIData
 
 public class MainUiParentNode{
 	public string name = string.Empty;
-	public MainUiParentNode NextNode;
+	public List<MainUiParentNode> NextNode = new List<MainUiParentNode>();
 	public List<UiItemData> Items;
 	public MainUiParentNode(){}
 }
