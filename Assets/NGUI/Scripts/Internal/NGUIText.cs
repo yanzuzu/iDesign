@@ -115,8 +115,8 @@ static public class NGUIText
 				}
 			}
 
-			float y0 = mTempChar.maxY;
-			float y1 = mTempChar.minY;
+			float y0 = mTempChar.vert.yMax;
+			float y1 = mTempChar.vert.yMin;
 			baseline = Mathf.Round(y0 + (finalSize - y0 + y1) * 0.5f);
 		}
 #endif
@@ -162,7 +162,7 @@ static public class NGUIText
 		else if (dynamicFont != null)
 		{
 			if (dynamicFont.GetCharacterInfo((char)ch, out mTempChar, finalSize, fontStyle))
-				return Mathf.Round(mTempChar.advance * fontScale * pixelDensity);
+				return Mathf.Round(mTempChar.width * fontScale * pixelDensity);
 		}
 #endif
 		return 0f;
@@ -211,10 +211,10 @@ static public class NGUIText
 		{
 			if (dynamicFont.GetCharacterInfo((char)ch, out mTempChar, finalSize, fontStyle))
 			{
-				glyph.v0.x = mTempChar.minX;
+				glyph.v0.x = mTempChar.vert.xMin;
 				glyph.v1.x = glyph.v0.x + mTempChar.vert.width;
 
-				glyph.v0.y = mTempChar.maxY - baseline;
+				glyph.v0.y = mTempChar.vert.yMax - baseline;
 				glyph.v1.y = glyph.v0.y - mTempChar.vert.height;
 
 				glyph.u0.x = mTempChar.uv.xMin;
