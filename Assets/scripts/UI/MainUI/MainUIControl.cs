@@ -29,12 +29,12 @@ public class MainUIControl : MonoBehaviour,IEventListener {
 		ZuDebug.Log("MainUIControl onEvent eventName = " + eventName);
 		if( EventIDs.EVENT_ON_CLICK_PARENT_NODE == eventName )
 		{
-			List<MainUiParentNode> nodes = data as List<MainUiParentNode>;
-			m_listViewUI.refreshParentNode(nodes);
+			MainUiParentNode nodeParent = data as MainUiParentNode;
+			m_listViewUI.refreshParentNode(nodeParent.name, nodeParent.NextNode);
 		}else if( EventIDs.EVENT_ON_CLICK_CHILD_NODE == eventName )
 		{
-			List<UiItemData> nodes = data as List<UiItemData>;
-			m_listViewUI.refreshChildNode(nodes);
+			MainUiParentNode nodeParent = data as MainUiParentNode;
+			m_listViewUI.refreshChildNode(nodeParent.name, nodeParent.Items);
 		}
 		return null;
 	}

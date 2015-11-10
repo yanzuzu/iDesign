@@ -11,6 +11,8 @@ public class ItemListView : MonoBehaviour {
 	private ListViewChildNode m_childNode;
 	[SerializeField]
 	private UIGrid m_childGrid;
+	[SerializeField]
+	private ListViewHistoryBar m_historyBar;
 
 	private MainUIData m_uiData;
 	private List<ListViewParentNode> m_parentNodes = new List<ListViewParentNode> ();
@@ -19,10 +21,10 @@ public class ItemListView : MonoBehaviour {
 	public void Setup(MainUIData uiData)
 	{
 		m_uiData = uiData;
-		refreshParentNode (m_uiData.UiDatas);
+		refreshParentNode (string.Empty, m_uiData.UiDatas);
 	}
 
-	public void refreshChildNode(List<UiItemData> pItems)
+	public void refreshChildNode(string nodeName, List<UiItemData> pItems)
 	{
 		m_grid.gameObject.SetActive (false);
 		m_childGrid.gameObject.SetActive (true);
@@ -43,9 +45,14 @@ public class ItemListView : MonoBehaviour {
 			m_childNodes.Add(unitComponent);
 		}
 		m_childGrid.Reposition ();
+
+		if( nodeName != string.Empty )
+		{
+			m_historyBar.AddNode(nodeName, null);
+		}
 	}
 
-	public void refreshParentNode(List<MainUiParentNode> pParentNodes)
+	public void refreshParentNode(string nodeName, List<MainUiParentNode> pParentNodes)
 	{
 		m_childGrid.gameObject.SetActive (false);
 		m_grid.gameObject.SetActive (true);
@@ -66,6 +73,11 @@ public class ItemListView : MonoBehaviour {
 			m_parentNodes.Add(unitComponent);
 		}
 		m_grid.Reposition();
+
+		if( nodeName != string.Empty )
+		{
+			m_historyBar.AddNode(nodeName, pParentNodes);
+		}
 	}
 
 }

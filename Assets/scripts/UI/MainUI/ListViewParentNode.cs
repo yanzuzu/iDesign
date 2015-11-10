@@ -20,11 +20,11 @@ public class ListViewParentNode : MonoBehaviour {
 		ZuDebug.Log ("OnClickParentNode");
 		if( m_nodeData.NextNode != null )
 		{
-			ServiceLocator<EventManager>.Instance.SendEvent(EventIDs.EVENT_ON_CLICK_PARENT_NODE,m_nodeData.NextNode);
+			ServiceLocator<EventManager>.Instance.SendEvent(EventIDs.EVENT_ON_CLICK_PARENT_NODE,m_nodeData);
 		}
 		if( m_nodeData.Items != null )
 		{
-			ServiceLocator<EventManager>.Instance.SendEvent(EventIDs.EVENT_ON_CLICK_CHILD_NODE,m_nodeData.Items);
+			ServiceLocator<EventManager>.Instance.SendEvent(EventIDs.EVENT_ON_CLICK_CHILD_NODE,m_nodeData);
 		}
 		
 	}
