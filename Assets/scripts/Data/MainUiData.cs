@@ -2,13 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-public class MainUIData
-{
-	public List<MainUiParentNode> UiDatas;
-	public MainUIData(){}
-}
-
 public class MainUiParentNode{
 	public string name = string.Empty;
 	public List<MainUiParentNode> NextNode = new List<MainUiParentNode>();

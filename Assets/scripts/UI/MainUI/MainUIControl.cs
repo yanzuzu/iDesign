@@ -30,11 +30,11 @@ public class MainUIControl : MonoBehaviour,IEventListener {
 		if( EventIDs.EVENT_ON_CLICK_PARENT_NODE == eventName )
 		{
 			MainUiParentNode nodeParent = data as MainUiParentNode;
-			m_listViewUI.refreshParentNode(nodeParent.name, nodeParent.NextNode);
+			m_listViewUI.refreshParentNode(nodeParent, nodeParent.NextNode);
 		}else if( EventIDs.EVENT_ON_CLICK_CHILD_NODE == eventName )
 		{
 			MainUiParentNode nodeParent = data as MainUiParentNode;
-			m_listViewUI.refreshChildNode(nodeParent.name, nodeParent.Items);
+			m_listViewUI.refreshChildNode(nodeParent);
 		}
 		return null;
 	}

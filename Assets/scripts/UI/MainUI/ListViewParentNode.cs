@@ -6,12 +6,16 @@ using ZuEngine.Event;
 public class ListViewParentNode : MonoBehaviour {
 	[SerializeField]
 	private UILabel m_name;
+	[SerializeField]
+	private ListViewHistoryBar m_historyBar;
 
 	private MainUiParentNode m_nodeData;
+	private MainUiParentNode m_parentNode;
 
-	public void Setup( MainUiParentNode pNodeData )
+	public void Setup( MainUiParentNode pParentNode, MainUiParentNode pNodeData )
 	{
 		m_nodeData = pNodeData;
+		m_parentNode = pParentNode;
 		m_name.text = m_nodeData.name;
 	}
 
@@ -26,6 +30,7 @@ public class ListViewParentNode : MonoBehaviour {
 		{
 			ServiceLocator<EventManager>.Instance.SendEvent(EventIDs.EVENT_ON_CLICK_CHILD_NODE,m_nodeData);
 		}
+		m_historyBar.AddNode(m_parentNode,m_nodeData);
 		
 	}
 }

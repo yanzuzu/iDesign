@@ -4,25 +4,25 @@ using System.Collections.Generic;
 
 public class DataManager : MonoBehaviour {
 
-	public MainUIData mainUIData;
+	public MainUiParentNode mainUIData;
 
 	public void Setup()
 	{
 		mainUIData = CreateMainUIData ();
 	}
 
-	private MainUIData CreateMainUIData()
+	private MainUiParentNode CreateMainUIData()
 	{
-		MainUIData data = new MainUIData ();
+		MainUiParentNode data = new MainUiParentNode ();
 
-		data.UiDatas = new List<MainUiParentNode> ();
+		data.NextNode = new List<MainUiParentNode> ();
 		MainUiParentNode parentNode = new MainUiParentNode ();
 		parentNode.name = "Walls";
 		parentNode.Items = new List<UiItemData> ();
 		parentNode.Items.Add(new UiItemData(1,"item_wall_straight"));
 		parentNode.Items.Add(new UiItemData(2,"item_wall_multiStraight"));
 		parentNode.NextNode = null;
-		data.UiDatas.Add (parentNode);
+		data.NextNode.Add (parentNode);
 
 		MainUiParentNode parentNode2 = new MainUiParentNode ();
 		parentNode2.name = "Rooms";
@@ -37,7 +37,7 @@ public class DataManager : MonoBehaviour {
 
 		parentNode2.NextNode.Add(parentNode3);
 
-		data.UiDatas.Add (parentNode2);
+		data.NextNode.Add (parentNode2);
 
 		return data;
 	}
