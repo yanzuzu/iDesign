@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using ZuEngine;
+using ZuEngine.Input;
 
 public class MainSceneController : MonoBehaviour {
 	[SerializeField]
@@ -11,4 +13,5 @@ public class MainSceneController : MonoBehaviour {
 		ServiceLocator<DataManager>.Instance.Setup ();
 		m_mainUIController.Setup ();
 	}
+	
 }

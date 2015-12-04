@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using ZuEngine;
+using ZuEngine.Event;
 
 public class ListViewChildNode : MonoBehaviour {
 	[SerializeField]
@@ -7,12 +9,16 @@ public class ListViewChildNode : MonoBehaviour {
 	[SerializeField]
 	private MyUIButton m_uiBtn;
 
-	private UiItemData itemData;
+	private BuildData m_itemData;
 
-	public void Setup(UiItemData pData)
+	public void Setup(BuildData pData)
 	{
-		itemData = pData;
-		//m_itemImg.spriteName = itemData.ImageName;
-		m_uiBtn.normalSprite = itemData.ImageName;
+		m_itemData = pData;
+		m_uiBtn.normalSprite = m_itemData.ImageName;
+	}
+
+	public void OnClickChildNode()
+	{
+		ServiceLocator< EventManager >.Instance.SendEvent (EventIDs.EVENT_ON_CLICK_UNIT_TYPE, m_itemData);
 	}
 }
