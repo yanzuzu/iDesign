@@ -11,11 +11,13 @@ public class TwoDMapController : MonoBehaviour , IInputListener, IEventListener 
 	private Camera UiCamera;
 
 	private BuildData m_selectBuildData;
+	private WallController wallCtrl;
 
 	void Start()
 	{
 		ServiceLocator< InputProcessor >.Instance.AddListener (this);
 		ServiceLocator< EventManager >.Instance.RegisterListener (EventIDs.EVENT_ON_CLICK_UNIT_TYPE, this);
+		wallCtrl = new WallController ();
 	}
 	
 	void Update()
@@ -42,12 +44,12 @@ public class TwoDMapController : MonoBehaviour , IInputListener, IEventListener 
 			return false;
 		}
 		ZuDebug.Log ("m_selectBuildData type = " + m_selectBuildData.type);
-		GameObject GameObj = ServiceLocator<ResourceManager>.Instance.LoadRes (m_selectBuildData.ResourcePath, true);
-		GameObj.transform.SetParent (this.gameObject.transform);
-		GameObj.transform.localScale = Vector3.one;
-		GameObj.GetComponent<UISprite> ().depth = 1;
-		Vector3 wordPos = UiCamera.ScreenToWorldPoint (new Vector3( position.x, position.y , 0 ));
-		GameObj.transform.position = wordPos;
+		switch( m_selectBuildData.type )
+		{
+		case UnitType.WALL:
+			wallCtrl.CreateWall(m_selectBuildData,this.gameObject,position);
+			break;
+		}
 		return false;
 	}
 	
@@ -65,6 +67,7 @@ public class TwoDMapController : MonoBehaviour , IInputListener, IEventListener 
 	
 	public void OnSwipeMoved(Vector2 startPosition, Vector2 currentPosition, List<GameObject> hitObjects)
 	{
+		Debug.Log ("OnSwipeMoved");
 	}
 	
 	public void OnSwipeReleased(Vector2 startPosition, Vector2 endPosition, List<GameObject> hitObjects)
