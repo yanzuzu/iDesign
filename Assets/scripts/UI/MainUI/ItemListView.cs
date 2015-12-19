@@ -25,7 +25,7 @@ public class ItemListView : MonoBehaviour {
 	public void refreshChildNode(MainUiParentNode pParentNode)
 	{
 		ZuDebug.Log ("refreshChildNode");
-		string nodeName = pParentNode.name;
+		//string nodeName = pParentNode.name;
 		List<BuildData> pItems = pParentNode.Items;
 		m_grid.gameObject.SetActive (false);
 		m_childGrid.gameObject.SetActive (true);
@@ -51,7 +51,7 @@ public class ItemListView : MonoBehaviour {
 	public void refreshParentNode(MainUiParentNode parentNode,List<MainUiParentNode> pNextNodes)
 	{
 		ZuDebug.Log ("refreshParentNode");
-		string nodeName = parentNode == null ? string.Empty : parentNode.name;
+		//string nodeName = parentNode == null ? string.Empty : parentNode.name;
 		m_childGrid.gameObject.SetActive (false);
 		m_grid.gameObject.SetActive (true);
 		for( int i = 0 ; i< m_parentNodes.Count ; i ++ )

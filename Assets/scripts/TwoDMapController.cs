@@ -7,11 +7,15 @@ using ZuEngine.Event;
 using ZuEngine.Manager;
 
 public class TwoDMapController : MonoBehaviour , IInputListener, IEventListener {
+	#region SerailzeField
 	[SerializeField]
 	private Camera UiCamera;
+	#endregion
 
+	#region private member
 	private BuildData m_selectBuildData;
 	private WallController wallCtrl;
+	#endregion
 
 	void Start()
 	{
@@ -62,16 +66,22 @@ public class TwoDMapController : MonoBehaviour , IInputListener, IEventListener 
 	//return true to be the owner of the swipe, others will not recieve the moved/released
 	public bool OnSwipeStarted(Vector2 startPosition, Vector2 currentPosition, List<GameObject> hitObjects)
 	{
-		return false;
+		return m_selectBuildData != null;
 	}
 	
 	public void OnSwipeMoved(Vector2 startPosition, Vector2 currentPosition, List<GameObject> hitObjects)
 	{
-		Debug.Log ("OnSwipeMoved");
+		switch( m_selectBuildData.type )
+		{
+		case UnitType.WALL:
+			wallCtrl.ScaleWall (startPosition, currentPosition);
+			break;
+		}
 	}
 	
 	public void OnSwipeReleased(Vector2 startPosition, Vector2 endPosition, List<GameObject> hitObjects)
 	{
+		//Debug.Log ("OnSwipeReleased");
 	}
 	#endregion
 }
