@@ -8,6 +8,11 @@ namespace ZuEngine
 		private MouseInput mouseInput = new MouseInput();
 		private TouchInput touchInput= new TouchInput();
 
+		void Awake()
+		{
+			ServiceLocator<DataManager>.Instance.GetData ();
+		}
+
 		// Use this for initialization
 		void Start () {
 			DontDestroyOnLoad (this);

@@ -8,7 +8,12 @@ namespace ZuEngine.Manager
 	{
 		private Dictionary< string , Object > m_resMap = new Dictionary<string, Object>();
 
-		public GameObject LoadRes( string path , bool forceLoad = false )
+		public Texture2D LoadImage(string path)
+		{
+			return Resources.Load( path ) as Texture2D;
+		}
+
+		public GameObject LoadRes( string path , bool forceLoad = true )
 		{
 			if( m_resMap.ContainsKey( path ) )
 			{
