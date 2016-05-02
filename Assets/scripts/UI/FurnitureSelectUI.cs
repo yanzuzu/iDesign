@@ -27,4 +27,14 @@ public class FurnitureSelectUI : MonoBehaviour {
 		unitGrid.Reposition ();
 
 	}
+
+	public void OnClickVR()
+	{
+		ZuDebug.Log ("OnClickVR start");
+		if (Camera.main == null)
+			return;
+		Camera.main.gameObject.transform.position = new Vector3 (0,1,-2);
+		StereoController stereoCtrl = Camera.main.gameObject.AddComponent<StereoController> ();
+
+	}
 }
