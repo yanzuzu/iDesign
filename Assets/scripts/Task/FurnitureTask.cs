@@ -64,6 +64,7 @@ public class FurnitureTask : Task , IInputListener {
 		{
 			m_hitFurniture.Rigid.constraints = RigidbodyConstraints.FreezeAll;
 			m_diffCamDist = Vector3.Distance(Camera.main.transform.position ,m_hitFurniture.CacheTrans.position );
+			m_hitFurniture.OnClickItem ();
 			return true;
 		}
 		return false;
@@ -80,6 +81,7 @@ public class FurnitureTask : Task , IInputListener {
 	public void OnSwipeReleased(Vector2 startPosition, Vector2 endPosition, List<GameObject> hitObjects)
 	{
 		m_hitFurniture.Rigid.constraints = RigidbodyConstraints.None;
+		m_hitFurniture.OnReleaseItem ();
 		m_hitFurniture = null;
 	}
 	#endregion
