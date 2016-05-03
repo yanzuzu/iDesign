@@ -24,6 +24,8 @@ public class Furniture : MonoBehaviour {
 		m_outlineObj =  GameObject.Instantiate (this.gameObject);
 		m_outlineObj.transform.SetParent (CacheTrans);
 		m_outlineObj.transform.localScale = Vector3.one;
+		BoxCollider boxCollid = m_outlineObj.GetComponent<BoxCollider> ();
+		Destroy (boxCollid);
 		MeshRenderer [] renders = m_outlineObj.GetComponentsInChildren<MeshRenderer> ();
 		for (int i = 0; i < renders.Length; i++) {
 			renders [i].material.shader = m_outlineShader;
