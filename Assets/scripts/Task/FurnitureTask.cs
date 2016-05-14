@@ -4,25 +4,30 @@ using System.Collections.Generic;
 using ZuEngine;
 using ZuEngine.StateManagement;
 using ZuEngine.Input;
+using ZuEngine.Event;
 
 public class FurnitureTask : Task , IInputListener {
 
 	private Furniture m_hitFurniture;
 	private float m_diffCamDist = 0;
+	private int m_isTurnItem = 0;
 
 	public FurnitureTask()
 	{
-
+		ListenForEvent (EventIDs.EVENT_TURN_RIGHT, OnTurnRight);
+		ListenForEvent (EventIDs.EVENT_TURN_LEFT, OnTurnLeft);
 	}
 
 	public override void Pause()
 	{
 		ServiceLocator< InputProcessor >.Instance.RemoveListener (this);
+
 	}
 
 	public override void Resume()
 	{
 		ServiceLocator< InputProcessor >.Instance.AddListener (this);
+
 	}
 
 	public override void Show(bool show)
@@ -32,19 +37,52 @@ public class FurnitureTask : Task , IInputListener {
 
 	public override void Update(float deltaTime)
 	{
-
+		if (m_isTurnItem != 0 && m_hitFurniture != null) {
+			m_hitFurniture.Rotate (m_isTurnItem);
+		}
 	}
-	
+
+	private EventResult OnTurnRight(string name , object args)
+	{
+		return TurnItem(1,args);
+	}
+
+	private EventResult OnTurnLeft(string name , object args)
+	{
+		return TurnItem(-1,args);
+	}
+
+	private EventResult TurnItem(int turnValue , object args )
+	{
+		m_isTurnItem = 0;
+		if (m_hitFurniture == null)
+			return null;
+		bool isPress =  (bool)args;
+		if (!isPress) {
+			m_isTurnItem = 0;
+		} else {
+			m_isTurnItem = turnValue;
+		}
+		return null;
+	}
+
 	#region implement Input
 	//called when a touch starts, returning true will eat the input
 	public bool OnPress(Vector2 position, List<GameObject> hitObjects)
 	{
 		bool isHit = false;
+		if (m_hitFurniture != null) {
+			m_hitFurniture.Rigid.constraints = RigidbodyConstraints.None;
+			m_hitFurniture.OnReleaseItem ();
+			m_hitFurniture = null;
+		}
+			
 		for( int i = 0 ; i < hitObjects.Count ; i ++ )
 		{
 			Furniture hitObj = hitObjects[i].GetComponent< Furniture >();
 			if( !hitObj ) continue;
 			m_hitFurniture = hitObj;
+			m_hitFurniture.OnClickItem ();
 			return true;
 		}
 		m_hitFurniture = null;
@@ -64,7 +102,6 @@ public class FurnitureTask : Task , IInputListener {
 		{
 			m_hitFurniture.Rigid.constraints = RigidbodyConstraints.FreezeAll;
 			m_diffCamDist = Vector3.Distance(Camera.main.transform.position ,m_hitFurniture.CacheTrans.position );
-			m_hitFurniture.OnClickItem ();
 			return true;
 		}
 		return false;
@@ -80,9 +117,7 @@ public class FurnitureTask : Task , IInputListener {
 
 	public void OnSwipeReleased(Vector2 startPosition, Vector2 endPosition, List<GameObject> hitObjects)
 	{
-		m_hitFurniture.Rigid.constraints = RigidbodyConstraints.None;
-		m_hitFurniture.OnReleaseItem ();
-		m_hitFurniture = null;
+		
 	}
 	#endregion
 

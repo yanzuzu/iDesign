@@ -89,6 +89,9 @@ namespace ZuEngine.Input
 		#region IEventListener implementation
 		public EventResult OnEvent (string eventName, object data)
 		{
+			if (IsPointUI ())
+				return null;
+			
 			if(eventName == CommonEvents.EVENT_MOUSE_BUTTON)
 			{
 				CommonEvents.ButtonEvent e = data as CommonEvents.ButtonEvent;
@@ -202,11 +205,24 @@ namespace ZuEngine.Input
 		}
 
 
+		private bool IsPointUI()
+		{
+			Ray myray = UICamera.currentCamera.ScreenPointToRay(UnityEngine.Input.mousePosition);
+			RaycastHit[] UIhits = Physics.RaycastAll(myray);
+			foreach (RaycastHit rch in UIhits) {
+				if (rch.collider.gameObject.layer == LayerMask.NameToLayer ("UI"))
+				{
+					return true;
+				}				
+			}
+			return false;
+		}
 		private List<GameObject> GetHits(Vector2 position)
 		{
-			RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(new Vector3(position.x, position.y, 0)));
 			List<GameObject> goHits = new List<GameObject>();
 			
+			RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(new Vector3(position.x, position.y, 0)));
+
 			foreach(RaycastHit rch in hits)
 			{
 				goHits.Add(rch.collider.gameObject);

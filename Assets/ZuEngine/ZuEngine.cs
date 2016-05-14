@@ -5,6 +5,8 @@ using ZuEngine.StateManagement;
 namespace ZuEngine
 {
 	public class ZuEngine : MonoBehaviour {
+		public UICamera uiCamera;
+
 		private MouseInput mouseInput = new MouseInput();
 		private TouchInput touchInput= new TouchInput();
 
@@ -15,6 +17,7 @@ namespace ZuEngine
 		void Awake()
 		{
 			ServiceLocator<DataManager>.Instance.GetData ();
+			ServiceLocator<UIManager>.Instance.Init (uiCamera);
 		}
 
 		// Use this for initialization
