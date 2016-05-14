@@ -72,7 +72,7 @@ public class FurnitureTask : Task , IInputListener {
 	{
 		bool isHit = false;
 		if (m_hitFurniture != null) {
-			m_hitFurniture.Rigid.constraints = RigidbodyConstraints.None;
+			//m_hitFurniture.Rigid.constraints = RigidbodyConstraints.None;
 			m_hitFurniture.OnReleaseItem ();
 			m_hitFurniture = null;
 		}
@@ -100,7 +100,7 @@ public class FurnitureTask : Task , IInputListener {
 	{
 		if (m_hitFurniture)
 		{
-			m_hitFurniture.Rigid.constraints = RigidbodyConstraints.FreezeAll;
+			//m_hitFurniture.Rigid.constraints = RigidbodyConstraints.FreezeAll;
 			m_diffCamDist = Vector3.Distance(Camera.main.transform.position ,m_hitFurniture.CacheTrans.position );
 			return true;
 		}

@@ -30,8 +30,8 @@ public class Furniture : MonoBehaviour {
 		m_outlineObj.transform.localScale = Vector3.one;
 		BoxCollider boxCollid = m_outlineObj.GetComponent<BoxCollider> ();
 		Destroy (boxCollid);
-		Rigidbody rigibody = m_outlineObj.GetComponent<Rigidbody> ();
-		Destroy (rigibody);
+//		Rigidbody rigibody = m_outlineObj.GetComponent<Rigidbody> ();
+//		Destroy (rigibody);
 		MeshRenderer [] renders = m_outlineObj.GetComponentsInChildren<MeshRenderer> ();
 		for (int i = 0; i < renders.Length; i++) {
 			renders [i].material.shader = m_outlineShader;
