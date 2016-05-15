@@ -56,4 +56,9 @@ public class Furniture : MonoBehaviour {
 	{
 		transform.RotateAround (transform.position, Vector3.up, turnValue * Time.deltaTime*90f);
 	}
+
+	public void DestroyItem()
+	{
+		Destroy (gameObject);
+	}
 }

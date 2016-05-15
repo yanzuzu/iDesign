@@ -23,4 +23,9 @@ public class FurnitureOperatationUI : MonoBehaviour {
 	{
 		ServiceLocator< EventManager >.Instance.SendEvent (EventIDs.EVENT_TURN_LEFT, false);
 	}
+
+	public void ClickDelete()
+	{
+		ServiceLocator< EventManager >.Instance.SendEvent (EventIDs.EVENT_DELETE_ITEM);
+	}
 }

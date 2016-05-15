@@ -16,6 +16,7 @@ public class FurnitureTask : Task , IInputListener {
 	{
 		ListenForEvent (EventIDs.EVENT_TURN_RIGHT, OnTurnRight);
 		ListenForEvent (EventIDs.EVENT_TURN_LEFT, OnTurnLeft);
+		ListenForEvent (EventIDs.EVENT_DELETE_ITEM, OnDeleteItem);
 	}
 
 	public override void Pause()
@@ -42,6 +43,15 @@ public class FurnitureTask : Task , IInputListener {
 		}
 	}
 
+	private EventResult OnDeleteItem(string name , object args)
+	{
+		if (m_hitFurniture != null){
+			m_hitFurniture.OnReleaseItem ();
+			m_hitFurniture.DestroyItem ();
+			m_hitFurniture = null;
+		}
+		return null;
+	}
 	private EventResult OnTurnRight(string name , object args)
 	{
 		return TurnItem(1,args);
