@@ -99,7 +99,7 @@ public class FurnitureSaveTask : Task {
 		for (int i = 0; i < saveDatas.Count; i++) {
 			Furniture obj = ServiceLocator< FurnitureManager >.Instance.CreateFurniture (saveDatas [i].id);
 			obj.gameObject.transform.position = new Vector3( saveDatas [i].posX, saveDatas [i].posY, saveDatas [i].posZ);
-			obj.gameObject.transform.localEulerAngles = new Vector3( saveDatas [i].rotateX, saveDatas [i].rotateY, saveDatas [i].rotateX);
+			obj.gameObject.transform.localEulerAngles = new Vector3( saveDatas [i].rotateX, saveDatas [i].rotateY, saveDatas [i].rotateZ);
 		}
 	}
 }
