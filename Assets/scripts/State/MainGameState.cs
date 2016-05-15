@@ -22,6 +22,7 @@ public class MainGameState : GameState {
 	private void InitTask()
 	{
 		TaskManager.AddTask (new FurnitureTask (), STATE_PLAY);
+		TaskManager.AddTask (new FurnitureSaveTask (), STATE_PLAY);
 	}
 	
 	#region implement of GameState

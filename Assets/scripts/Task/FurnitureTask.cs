@@ -85,6 +85,7 @@ public class FurnitureTask : Task , IInputListener {
 			//m_hitFurniture.Rigid.constraints = RigidbodyConstraints.None;
 			m_hitFurniture.OnReleaseItem ();
 			m_hitFurniture = null;
+			ServiceLocator<EventManager>.Instance.SendEvent (EventIDs.EVENT_SAVE_FURNITURE);
 		}
 			
 		for( int i = 0 ; i < hitObjects.Count ; i ++ )

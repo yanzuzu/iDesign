@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ZuEngine.Manager;
 using ZuEngine;
+using ZuEngine.Event;
 
 public class FurnitureSelectUI : MonoBehaviour {
 	public UIGrid unitGrid;
@@ -36,5 +37,15 @@ public class FurnitureSelectUI : MonoBehaviour {
 		Camera.main.gameObject.transform.position = new Vector3 (0,1,-2);
 		StereoController stereoCtrl = Camera.main.gameObject.AddComponent<StereoController> ();
 
+	}
+
+	public void OnCickClear()
+	{
+		ZuDebug.Log ("OnCickClear start");
+		foreach (KeyValuePair< int , Furniture > data in ServiceLocator<FurnitureManager>.Instance.FurnitureMaps) {
+			Destroy (data.Value.gameObject);
+		}
+		ServiceLocator<FurnitureManager>.Instance.FurnitureMaps.Clear ();
+		ServiceLocator<EventManager>.Instance.SendEvent (EventIDs.EVENT_SAVE_FURNITURE);
 	}
 }

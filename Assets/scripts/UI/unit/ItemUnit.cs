@@ -2,6 +2,7 @@
 using System.Collections;
 using ZuEngine;
 using ZuEngine.Manager;
+using ZuEngine.Event;
 
 public class ItemUnit : MonoBehaviour {
 	public UITexture ItemImg;
@@ -22,7 +23,7 @@ public class ItemUnit : MonoBehaviour {
 	public void OnClickItem()
 	{
 		ZuDebug.Log ("OnClickItem itemUnit = " + m_unitData.ItemName);
-		GameObject itemObj = ServiceLocator< ResourceManager >.Instance.LoadRes (string.Format (RES_PATH, m_unitData.ResourcePath));
-		itemObj.transform.position = Vector3.zero;
+		ServiceLocator<FurnitureManager>.Instance.CreateFurniture (m_unitData.ItemId);
+		ServiceLocator<EventManager>.Instance.SendEvent (EventIDs.EVENT_SAVE_FURNITURE);
 	}
 }

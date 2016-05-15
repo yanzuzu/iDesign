@@ -5,6 +5,9 @@ using ZuEngine;
 using ZuEngine.Manager;
 
 public class Furniture : MonoBehaviour {
+	public int Guid;
+	public ItemUnitData UnitData;
+
 	public Rigidbody Rigid;
 	public Transform CacheTrans;
 	public BoxCollider BoxCollid;
